@@ -6,10 +6,19 @@ import { cn } from "@/lib/utils";
 import AnimatedGridPattern from "@/components/ui/animated-grid-pattern";
 import { BsTwitterX } from "react-icons/bs";
 import { useSession, signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function LandingPage() {
-  const { data: session } = useSession();
+  const { status } = useSession();
+  const router = useRouter();
 
+  if (status === "authenticated") {
+    router.push("/dashboard");
+  }
+
+  if (status === "loading") {
+    return <div className="flex">Loading...</div>;
+  }
   return (
     <div className="flex flex-col h-screen bg-black text-white">
       <AnimatedGridPattern
@@ -37,9 +46,13 @@ export default function LandingPage() {
             <Button
               className="flex gap-2 items-center bg-white text-black hover:bg-gray-200 cursor-pointer"
               size="lg"
-              onClick={() => signIn("twitter")}
+              onClick={() =>
+                signIn("twitter", {
+                  callbackUrl: "/dashboard",
+                })
+              }
             >
-              {session ? "Get Started" : "Sign In with Twitter"}
+              {"Sign In with Twitter"}
               <BsTwitterX />
             </Button>
             <BorderBeam size={250} duration={12} delay={9} />
