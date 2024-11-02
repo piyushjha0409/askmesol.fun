@@ -1,12 +1,12 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import Sidebar from "./Sidebar";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { cn } from "@/lib/utils";
 import AnimatedGridPattern from "@/components/ui/animated-grid-pattern";
 import { BsTwitterX } from "react-icons/bs";
-import { useSession, signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { Login } from "../utils/Login";
 
 export default function LandingPage() {
   const { status } = useSession();
@@ -31,7 +31,6 @@ export default function LandingPage() {
           "inset-x-0 inset-y-[-30%] h-[100%] skew-y-12"
         )}
       />
-      <Sidebar />
       <main className="flex-1 flex items-center justify-center">
         <div className="text-center">
           <div className="relative flex h-[500px] w-[700px] flex-col items-center justify-center overflow-hidden rounded-2xl border ">
@@ -46,11 +45,7 @@ export default function LandingPage() {
             <Button
               className="flex gap-2 items-center bg-white text-black hover:bg-gray-200 cursor-pointer"
               size="lg"
-              onClick={() =>
-                signIn("twitter", {
-                  callbackUrl: "/dashboard",
-                })
-              }
+              onClick={Login}
             >
               {"Sign In with Twitter"}
               <BsTwitterX />

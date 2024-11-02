@@ -1,10 +1,14 @@
+"use client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { X, Menu } from "lucide-react";
+import { X, Menu, LogOut } from "lucide-react";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { Logout } from "../utils/Logout";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { status } = useSession();
 
   return (
     <>
@@ -69,6 +73,18 @@ export default function Sidebar() {
               </li>
             </ul>
           </nav>
+          {status === "authenticated" && (
+            <div className="p-4 border-t border-white">
+              <Button
+                variant="ghost"
+                className="w-full text-white hover:bg-gray-900 transition-colors duration-200 hover:text-white"
+                onClick={Logout}
+              >
+                <LogOut className="mr-2 h-4 w-4" />
+                Sign out
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </>
