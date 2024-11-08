@@ -2,18 +2,13 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { signOut, useSession } from "next-auth/react";
-import { redirect, useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { useRouter, redirect } from "next/navigation";
 import { motion } from "framer-motion";
 
 export default function UserDashboard() {
   const router = useRouter();
   const { status } = useSession();
-
-  function logOut() {
-    signOut();
-    router.push("/");
-  }
 
   if (status === "unauthenticated") {
     redirect("/");
@@ -44,7 +39,7 @@ export default function UserDashboard() {
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
         className="mb-8 text-4xl font-bold"
       >
-        User Dashboard
+        Ask me anything
       </motion.h1>
       <motion.div
         initial={{ scale: 0.9 }}
@@ -52,18 +47,18 @@ export default function UserDashboard() {
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
         className="mb-8 rounded-lg bg-gray-800 p-6 text-center"
       >
-        <p className="text-lg">Welcome to your personalized dashboard!</p>
+        <p className="text-lg">Welcome to your Creator dashboard!</p>
         <p className="mt-2 text-sm text-gray-400">
           Here you can manage your account and access exclusive features.
         </p>
       </motion.div>
       <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
         <Button
-          onClick={logOut}
+          onClick={() => router.push("/dashboard/blink")}
           variant="outline"
           className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
         >
-          Sign Out
+          Create a Blink
         </Button>
       </motion.div>
     </motion.div>

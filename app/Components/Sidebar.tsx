@@ -26,7 +26,7 @@ export default function Sidebar() {
         } transition-transform duration-300 ease-in-out`}
       >
         <div className="flex flex-col h-full">
-          <div className="flex justify-between items-center p-4 border-b border-white">
+          <div className="flex justify-between items-center p-4 border-b border-white/10">
             <h2 className="text-xl font-bold">Menu</h2>
             <Button
               variant="ghost"
@@ -74,7 +74,7 @@ export default function Sidebar() {
             </ul>
           </nav>
           {status === "authenticated" && (
-            <div className="p-4 border-t border-white">
+            <div className="p-4 border-t border-white/10">
               <Button
                 variant="ghost"
                 className="w-full text-white hover:bg-gray-900 transition-colors duration-200 hover:text-white"
