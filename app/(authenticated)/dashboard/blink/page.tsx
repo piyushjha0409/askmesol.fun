@@ -1,7 +1,6 @@
 "use client";
 import { LoginForm, BlinkFormData } from "@/components/login-form";
 import React, { useState } from "react";
-import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/hooks/use-toast";
 
 const Page = () => {
