@@ -64,6 +64,7 @@ export async function POST(request: Request) {
 //      });
 
 //   }
+
   const payload: ActionPostRequest = await request.json();  
   const userPubKey = payload.account;
   console.log("This is the user public key", userPubKey);
