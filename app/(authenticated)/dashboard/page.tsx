@@ -31,7 +31,7 @@ export default function UserDashboard() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="flex min-h-screen flex-col items-center justify-center bg-black text-white"
+      className="flex min-h-screen w-full flex-col items-center justify-center bg-black text-white"
     >
       <motion.h1
         initial={{ y: -50 }}

@@ -1,21 +1,47 @@
-import CardComponents from "@/app/Components/CardComponents";
-import RetroGrid from "@/components/ui/retro-grid";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+import { Separator } from "@/components/ui/separator"
+import {
+  SidebarInset,
+  SidebarTrigger,
+} from "@/components/ui/sidebar"
 
 export default function Page() {
-  const cards = Array.from({ length: 8 }, (_, i) => i + 1);
-
   return (
-    <div className="relative min-h-screen bg-black overflow-hidden py-12 ">
-      <RetroGrid className="absolute inset-0 z-0" />
-      <div className="relative z-10 flex items-center justify-center min-h-screen">
-        <div className="container mx-auto px-4 py-8 max-w-12xl">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 py-8 ">
-            {cards.map((card) => (
-              <CardComponents key={card} />
-            ))}
+      <SidebarInset className="bg-black text-white">
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
+          <SidebarTrigger className="-ml-1" />
+          <Separator orientation="vertical" className="mr-2 h-4" />
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem className="hidden md:block">
+                <BreadcrumbLink href="#">components</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator className="hidden md:block" />
+              <BreadcrumbItem className="hidden md:block">
+                <BreadcrumbLink href="#">ui</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator className="hidden md:block" />
+              <BreadcrumbItem>
+                <BreadcrumbPage>button.tsx</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </header>
+        <div className="flex flex-1 flex-col gap-4 p-4">
+          <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+            <div className="aspect-video rounded-xl bg-muted/10" />
+            <div className="aspect-video rounded-xl bg-muted/10" />
+            <div className="aspect-video rounded-xl bg-muted/10" />
           </div>
+          <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/10 md:min-h-min" />
         </div>
-      </div>
-    </div>
-  );
+      </SidebarInset>
+  )
 }

@@ -19,7 +19,19 @@ import {
 const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
 // const yourProgramId = new PublicKey('ProgramId here')
 
+
+//TODO: run a query for the checking 
+
 export async function GET(request: Request) {
+
+    //url decode   
+    const {pathname} = new URL(request.url);
+    const pathSegments = pathname.split("/")
+    const user_id = pathSegments[4]
+
+    //find query for any existential data in the database 
+    // const OrgData = await prisma
+
   const response: ActionGetResponse = {
     icon: "https://hive.io/",
     title: "Ask Me Anything!",
@@ -32,6 +44,8 @@ export async function GET(request: Request) {
 
   return Response.json(response);
 }
+
+//This is post req
 
 export async function POST(request: Request) {
   const payload: ActionPostRequest = await request.json();

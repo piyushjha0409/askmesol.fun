@@ -1,4 +1,5 @@
-import Sidebar from "../Components/Sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 export default async function RootLayout({
   children,
@@ -7,8 +8,10 @@ export default async function RootLayout({
 }>) {
   return (
     <>
-      <Sidebar />
-      {children}
+      <SidebarProvider>
+        <AppSidebar />
+        {children}
+      </SidebarProvider>
     </>
   );
 }

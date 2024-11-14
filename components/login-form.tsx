@@ -1,6 +1,4 @@
-//TODO: why there is multiple fields for the question (title and the textarea)
-//TODO: the profile image uploading is not rendering on the profile section
-
+"use client";
 import Link from "next/link";
 import { Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,9 +11,32 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import React from "react";
+import Image from "next/image";
 
-export function LoginForm() {
+interface LoginFormProps {
+  formData: BlinkFormData;
+  loading: boolean;
+  imagePreview: string | null;
+  onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+}
+
+export interface BlinkFormData {
+  title: string;
+  walletAddress: string;
+  blinkImage: File | null;
+}
+
+export function LoginForm({
+  formData,
+  loading,
+  imagePreview,
+  onInputChange,
+  onFileChange,
+  onSubmit,
+}: LoginFormProps) {
   return (
     <Card className="mx-auto max-w-md bg-black text-white">
       <CardHeader>
@@ -27,7 +48,7 @@ export function LoginForm() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form className="grid gap-6">
+        <form className="grid gap-6" onSubmit={onSubmit}>
           <div className="grid gap-2">
             <Label htmlFor="title">Question Title</Label>
             <Input
@@ -35,6 +56,9 @@ export function LoginForm() {
               placeholder="What's on your mind?"
               required
               className="h-12"
+              name="title"
+              value={formData.title}
+              onChange={onInputChange}
             />
           </div>
 
@@ -45,14 +69,27 @@ export function LoginForm() {
               placeholder="0x..."
               required
               className="h-12 font-mono"
+              name="walletAddress"
+              value={formData.walletAddress}
+              onChange={onInputChange}
             />
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="image">Profile Image</Label>
+            <Label htmlFor="image">Blink Image</Label>
             <div className="flex items-center gap-4">
-              <div className="h-24 w-24 rounded-full bg-gray-100 flex items-center justify-center">
-                <Upload className="h-8 w-8 text-gray-400" />
+              <div className="h-24 w-24 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden">
+                {imagePreview ? (
+                  <Image
+                    src={imagePreview}
+                    alt="Profile preview"
+                    width={96}
+                    height={96}
+                    className="object-cover w-full h-full"
+                  />
+                ) : (
+                  <Upload className="h-8 w-8 text-gray-400" />
+                )}
               </div>
               <div className="flex-1">
                 <Input
@@ -60,6 +97,7 @@ export function LoginForm() {
                   type="file"
                   accept="image/*"
                   className="h-12"
+                  onChange={onFileChange}
                 />
                 <p className="text-xs text-gray-500 mt-1">
                   Upload a profile picture (optional)
@@ -68,21 +106,12 @@ export function LoginForm() {
             </div>
           </div>
 
-          <div className="grid gap-2">
-            <Label htmlFor="question">Your Question</Label>
-            <Textarea
-              id="question"
-              placeholder="Type your question here..."
-              className="min-h-[120px] resize-none"
-              required
-            />
-          </div>
-
           <Button
             type="submit"
+            disabled={loading}
             className="w-full bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600"
           >
-            Ask Question
+            {loading ? "Publishing..." : "Publish Blink"}
           </Button>
 
           <div className="text-center text-sm text-gray-500">
