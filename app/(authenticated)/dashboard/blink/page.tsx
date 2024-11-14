@@ -13,8 +13,8 @@ const Page = () => {
     blinkImage: null,
   });
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [blinkId, setBlinkId] = useState<string>("");
-  const [blinkUrl, setBlinkUrl] = useState<string>("")
+  const [, setBlinkId] = useState<string>("");
+//   const [blinkUrl, setBlinkUrl] = useState<string>("")
   const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
