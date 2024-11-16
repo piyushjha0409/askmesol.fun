@@ -1,5 +1,7 @@
+//TODO: include the wallet adapter on this page 
 "use client";
 import { LoginForm, BlinkFormData } from "@/components/login-form";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import React, { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -94,7 +96,10 @@ const Page = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen w-full bg-black">
+    <div className="flex relative justify-center items-center h-screen w-full bg-black">
+    <div className="absolute top-5 right-3">
+        <WalletMultiButton style={{}}/>
+    </div>
       <div className="flex">
         <LoginForm
           formData={formData}

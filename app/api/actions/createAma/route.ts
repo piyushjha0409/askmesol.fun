@@ -57,12 +57,6 @@ export async function POST(request: Request) {
     );
   }
  
-//   let user_id; 
-//   try{
-//     const user = await prisma.user.findUnique({ 
-//        where: {userId}
-//      });
-
 //   }
 
   const payload: ActionPostRequest = await request.json();  
