@@ -7,6 +7,7 @@ import { BsTwitterX } from "react-icons/bs";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Login } from "../utils/Login";
+import LoaderComponent from "@/components/LoaderComponent";
 
 export default function LandingPage() {
   const { status } = useSession();
@@ -17,7 +18,7 @@ export default function LandingPage() {
   }
 
   if (status === "loading") {
-    return <div className="flex">Loading...</div>;
+    return <LoaderComponent />;
   }
   return (
     <div className="flex flex-col h-screen bg-black text-white">

@@ -5,3 +5,4 @@ export const Login = () => {
     callbackUrl: "/dashboard",
   });
 };
+

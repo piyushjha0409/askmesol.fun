@@ -1,4 +1,5 @@
 import { v2 as cloudinary } from "cloudinary";
+import { randomUUID } from "crypto";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -6,34 +7,31 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export async function uploadImage(file: Blob, folder: string = ""): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const stream = cloudinary.uploader.upload_stream(
+export async function uploadImage(
+  imageFile: File,
+  base64String: string
+): Promise<string> {
+  if (!process.env.CLOUDINARY_UPLOAD_PRESET) {
+    throw new Error("Cloundinary upload preset is not defined!");
+  }
+
+  //preparing the base64 encoding
+  const trimmedValue = base64String.trim();
+
+  try {
+    const result = await cloudinary.uploader.upload(
+      `data:${imageFile.type}; base64, ${trimmedValue}`,
       {
-        folder,
+        folder: "blinkImage",
         resource_type: "image",
+        public_id: randomUUID(),
         upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET || "",
-      },
-      (error, result) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(result?.secure_url || "");
-        }
       }
     );
 
-    const reader = file.stream().getReader();
-    const read = () => {
-      reader.read().then(({ done, value }) => {
-        if (done) {
-          stream.end();
-          return;
-        }
-        stream.write(value);
-        read();
-      });
-    };
-    read();
-  });
+    return result.secure_url || "";
+  } catch (error) {
+    console.error("Error uploading image to Cloudinary:", error);
+    throw new Error("Failed to upload image");
+  }
 }
