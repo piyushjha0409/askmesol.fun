@@ -2,32 +2,31 @@ import { v2 as cloudinary } from "cloudinary";
 import { randomUUID } from "crypto";
 
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
+  api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
 });
 
-export async function uploadImage(
-  imageFile: File,
-  base64String: string
-): Promise<string> {
-  if (!process.env.CLOUDINARY_UPLOAD_PRESET) {
+export async function uploadImage(imageFile: File): Promise<string> {
+  if (!process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET) {
     throw new Error("Cloundinary upload preset is not defined!");
   }
 
-  //preparing the base64 encoding
-  const trimmedValue = base64String.trim();
+  const imageBuffer = await imageFile.arrayBuffer();
+  const base64String = Buffer.from(imageBuffer).toString("base64");
 
   try {
     const result = await cloudinary.uploader.upload(
-      `data:${imageFile.type}; base64, ${trimmedValue}`,
+      `data:${imageFile.type};base64,${base64String}`,
       {
         folder: "blinkImage",
         resource_type: "image",
         public_id: randomUUID(),
-        upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET || "",
+        upload_preset: process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "",
       }
     );
+
+    console.log("This is result ---> ", result)
 
     return result.secure_url || "";
   } catch (error) {

@@ -87,5 +87,5 @@ model BlinkSchema {
     creator_id    String
     title         String
     walletAddress String
-    blinkImage    String
+    blinkImageUrl String
 }
