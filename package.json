@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "ui:add" : "npx shadcn@latest add"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.2",
