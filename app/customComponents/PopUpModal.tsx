@@ -24,6 +24,7 @@ const PopUpModal = ({
   icon,
 }: Props) => {
   return (
+    // TODO: make a share button from which you will be tweeting directly 
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>

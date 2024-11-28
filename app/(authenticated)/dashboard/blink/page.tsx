@@ -151,7 +151,7 @@ export default function CreateBlinkPage() {
 
   //function for making copy button
   const handleCopy = () => {
-    const linkToCopy = `https://www.minutess.xyz/join/${blinkId}`;
+    const linkToCopy = `http://https://solana-blink-project.vercel.app/api/actions/questions/${blinkId}`;
     navigator.clipboard.writeText(linkToCopy).then(() => {
       setCopied(true);
       setIcon(<CheckCircle className="text-green-500" />); // Change icon to checkmark icon
