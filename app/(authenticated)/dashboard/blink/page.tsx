@@ -109,6 +109,8 @@ export default function CreateBlinkPage() {
 
       if (data.blink_id) {
         setBlinkId(data.blink_id);
+        sessionStorage.setItem('blinkId', blinkId)
+        localStorage.setItem('blinkId', blinkId)
       }
 
       toast({
