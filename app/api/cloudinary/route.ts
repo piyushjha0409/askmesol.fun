@@ -21,7 +21,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    const imageUrl = await uploadImage(file as File, folder as string);
+    const imageUrl = await uploadImage(file as File);
     return new Response(JSON.stringify({ url: imageUrl }), { status: 200 });
   } catch (error) {
     if (error instanceof Error) {
