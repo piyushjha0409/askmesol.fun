@@ -1,10 +1,1 @@
-
-
-// export const GET = async (req: Request) => {
-   
-//     try{
-      
-//     }catch(err){
-//        console.error(err)
-//     }
-// }
+//This route will fetch all the blinks answer from a user through twitter we have to fetch it and show it on the page 
