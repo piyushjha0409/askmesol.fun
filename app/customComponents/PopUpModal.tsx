@@ -6,6 +6,7 @@ import {
   DialogContent,
   DialogTitle,
 } from "@/components/ui/dialog";
+import TweetButton from "./TweetButton";
 
 type Props = {
   isModalOpen: boolean;
@@ -14,6 +15,7 @@ type Props = {
   copied: boolean;
   handleCopy: () => void;
   icon: React.ReactNode;
+  linkToCopy: string;
 };
 
 const PopUpModal = ({
@@ -22,9 +24,10 @@ const PopUpModal = ({
   blinkId,
   handleCopy,
   icon,
+  linkToCopy,
 }: Props) => {
   return (
-    // TODO: make a share button from which you will be tweeting directly 
+    // TODO: make a share button from which you will be tweeting directly
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
@@ -39,6 +42,7 @@ const PopUpModal = ({
             {icon}
             Copy Link
           </Button>
+          <TweetButton tweetContent={linkToCopy} />
         </div>
       </DialogContent>
     </Dialog>

@@ -88,4 +88,14 @@ model BlinkSchema {
     title         String
     walletAddress String
     blinkImageUrl String
+    askingFee     Float
+}
+
+model questionSchema {
+    id          String @id @default(auto()) @map("_id") @db.ObjectId
+    creator_id  String
+    blinkId     String
+    userAddress String
+    question    String
+    fee         Float
 }

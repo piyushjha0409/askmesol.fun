@@ -27,6 +27,7 @@ export interface BlinkFormData {
   title: string;
   walletAddress: string;
   blinkImage: File | null;
+  askingFee: number;
 }
 
 export function LoginForm({
@@ -104,6 +105,23 @@ export function LoginForm({
                 </p>
               </div>
             </div>
+          </div>
+
+          <div className="grid gap-2">
+            <Label htmlFor="askingFee">Asking Fee (SOL)</Label>
+            <Input
+              id="askingFee"
+              type="number"
+              step="0.1"
+              min="0.5"
+              max="1"
+              required
+              placeholder="Enter amount between 0.5 and 1 SOL"
+              className="h-12"
+              name="askingFee"
+              value={formData.askingFee}
+              onChange={onInputChange}
+            />
           </div>
 
           <Button

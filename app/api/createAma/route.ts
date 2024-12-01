@@ -39,6 +39,7 @@ export async function POST(req: Request) {
     const imageFile = formData.get("image") as File;
     const title = formData.get("title") as string;
     const walletAddress = formData.get("walletAddress") as string;
+    const askingFee = Number(formData.get("askingFee"));
 
     // Validate input
     if (!imageFile) {
@@ -62,6 +63,13 @@ export async function POST(req: Request) {
       );
     }
 
+    if (!askingFee) {
+      return NextResponse.json(
+        { success: false, message: "Asking fee is required" },
+        { status: 400 }
+      );
+    }
+
     // Upload image to Cloudinary
     const blinkImageUrl = await uploadImage(imageFile);
 
@@ -72,6 +80,7 @@ export async function POST(req: Request) {
         title,
         walletAddress,
         blinkImageUrl: blinkImageUrl,
+        askingFee: askingFee,
       },
     });
 

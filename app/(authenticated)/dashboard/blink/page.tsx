@@ -33,6 +33,7 @@ export default function CreateBlinkPage() {
     title: "",
     walletAddress: "",
     blinkImage: null,
+    askingFee: 0.0,
   });
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -109,8 +110,8 @@ export default function CreateBlinkPage() {
 
       if (data.blink_id) {
         setBlinkId(data.blink_id);
-        sessionStorage.setItem('blinkId', blinkId)
-        localStorage.setItem('blinkId', blinkId)
+        sessionStorage.setItem("blinkId", blinkId);
+        localStorage.setItem("blinkId", blinkId);
       }
 
       toast({
@@ -136,6 +137,7 @@ export default function CreateBlinkPage() {
         title: "",
         walletAddress: publicKey?.toString() || "",
         blinkImage: null,
+        askingFee: 0.0,
       });
       setIsModalOpen(true);
       setImagePreview(null);
@@ -151,9 +153,10 @@ export default function CreateBlinkPage() {
     }
   };
 
+  const linkToCopy = `https://solana-blink-project.vercel.app/api/actions/questions/${blinkId}`;
+
   //function for making copy button
   const handleCopy = () => {
-    const linkToCopy = `http://https://solana-blink-project.vercel.app/api/actions/questions/${blinkId}`;
     navigator.clipboard.writeText(linkToCopy).then(() => {
       setCopied(true);
       setIcon(<CheckCircle className="text-green-500" />); // Change icon to checkmark icon
@@ -182,8 +185,6 @@ export default function CreateBlinkPage() {
             onSubmit={handleSubmit}
           />
         </div>
-
-        {/* TODO: make a modal here for showing the blink link*/}
       </main>
       <PopUpModal
         isModalOpen={isModalOpen}
@@ -192,6 +193,7 @@ export default function CreateBlinkPage() {
         blinkId={blinkId}
         icon={icon}
         handleCopy={handleCopy}
+        linkToCopy={linkToCopy}
       />
     </div>
   );
