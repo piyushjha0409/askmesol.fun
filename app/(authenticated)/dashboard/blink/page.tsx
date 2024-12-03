@@ -72,8 +72,6 @@ export default function CreateBlinkPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    //TODO: handle the loading state by the custom loader component that you have created
     setLoading(true);
 
     try {
