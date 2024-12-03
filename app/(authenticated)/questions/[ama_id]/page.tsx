@@ -1,3 +1,4 @@
+//TODO: Figure out a way to manage the screenshot for the page so that we can share it on the twitter 
 "use client";
 
 import { useEffect, useState } from "react";
@@ -98,7 +99,7 @@ export default function Page({ params }: { params: { ama_id: string } }) {
             </BreadcrumbSeparator>
             <BreadcrumbItem>
               <BreadcrumbLink
-                href="/dashboard/questions"
+                href="/questions"
                 className="hover:text-blue-400 transition-colors"
               >
                 All Blinks
