@@ -44,7 +44,7 @@ export function LoginForm({
       className="rounded-lg overflow-hidden bg-black text-white"
       color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
     >
-      <Card className="mx-auto max-w-md bg-black text-white">
+      <Card className="mx-auto max-w-md bg-black text-white border-none">
         <CardHeader>
           <CardTitle className="text-2xl text-center">
             Ask Me Anything! 🤔

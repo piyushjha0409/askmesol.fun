@@ -1,4 +1,3 @@
-//TODO: add the share button on twitter to answer the question
 "use client";
 
 import { useEffect, useState } from "react";
@@ -12,12 +11,17 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChevronRight, Home, User, MessageCircle } from "lucide-react";
-import ShineBorder from "@/components/ui/shine-border";
-import LoaderComponent from "@/components/LoaderComponent";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardFooter,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { ChevronRight, Home, User } from "lucide-react";
+import ShineBorder from "@/components/ui/shine-border";
 import { BsTwitterX } from "react-icons/bs";
+import LoaderComponent from "@/components/LoaderComponent";
 
 interface BlinkData {
   blinkId: string;
@@ -67,23 +71,23 @@ export default function Page({ params }: { params: { ama_id: string } }) {
     return (
       <SidebarInset className="bg-black text-white">
         <div className="flex items-center justify-center h-screen">
-          <p>No Questions Found!!</p>
+          <div className="text-red-400">Error: {error}</div>
         </div>
       </SidebarInset>
     );
   }
 
   return (
-    <SidebarInset className="bg-black text-white">
+    <SidebarInset className="bg-black text-white min-h-screen">
       <header className="flex h-16 shrink-0 items-center gap-2 border-b border-gray-800 px-4">
         <SidebarTrigger className="-ml-1" />
         <Separator orientation="vertical" className="mr-2 h-4 bg-gray-700" />
-        <Breadcrumb className="p-2">
+        <Breadcrumb className="p-2 bg-black">
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink
-                href="/dashboard/blinks"
-                className="flex items-center"
+                href="#"
+                className="flex items-center hover:text-blue-400 transition-colors"
               >
                 <Home className="h-4 w-4 mr-2" />
                 <span className="hidden md:inline">Home</span>
@@ -93,8 +97,11 @@ export default function Page({ params }: { params: { ama_id: string } }) {
               <ChevronRight className="h-4 w-4 text-gray-500" />
             </BreadcrumbSeparator>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/questions" className="flex items-center">
-                <span>All Blinks</span>
+              <BreadcrumbLink
+                href="/dashboard/questions"
+                className="hover:text-blue-400 transition-colors"
+              >
+                All Blinks
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator>
@@ -102,47 +109,59 @@ export default function Page({ params }: { params: { ama_id: string } }) {
             </BreadcrumbSeparator>
             <BreadcrumbItem>
               <BreadcrumbPage className="font-semibold text-white">
-                Blink ID: {blinkData[0]?.blinkId || "Loading..."}
+                Blink #{blinkData[0]?.blinkId || "Loading..."}
               </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
       </header>
-      <div className="flex justify-center py-3">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-1 lg:grid-cols-2">
+      <div className="flex justify-center">
+        <div className="grid grid-cols-3 gap-12 w-full p-6">
           {blinkData.map((blink) => (
             <ShineBorder
               key={blink.id}
-              className="rounded-lg overflow-hidden bg-black text-white"
+              className="rounded-xl overflow-hidden bg-black text-white"
               color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
             >
-              <Card className="bg-black text-white h-full w-full min-w-[600px] border-none">
-                <CardHeader>
-                  <CardTitle className="flex items-center justify-between">
-                    <User className="h-6 w-6 mr-2" />
-                    <span className="text-sm text-blue-400">
-                      {blink.userAddress.slice(0, 6)}...
-                      {blink.userAddress.slice(-4)}
-                    </span>
-                  </CardTitle>
+              <Card className="bg-black backdrop-blur-sm border-none">
+                <CardHeader className="pb-2">
+                  <div className=" min-w-[300px] flex items-center justify-between">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="bg-gray-800 rounded-full p-2">
+                        <User className="h-5 w-5 text-white" />
+                      </div>
+                      <span className="text-white font-mono">
+                        {blink.userAddress.slice(0, 6)}...
+                        {blink.userAddress.slice(-4)}
+                      </span>
+                    </div>
+                    {/* <div className="flex items-center gap-2">
+                      <span className="text-xs text-gray-500">
+                        ID: {blink.id}
+                      </span>
+                    </div> */}
+                  </div>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex">
-                    <div className="relative h-48 w-48 rounded-md flex items-center justify-center">
-                      <MessageCircle className="h-12 w-12 text-gray-600" />
-                    </div>
-                    <div>
-                      <div className="w-full flex items-center justify-between"></div>
-                      <p className="text-xl font-semibold text-gray-300 p-4">
-                        {blink.question}
-                      </p>
-                    </div>
-                    <Button className="absolute bottom-6 right-6">
-                      {"Answer on"}
-                      <BsTwitterX />
-                    </Button>
+                <CardContent className="pt-4">
+                  <div className="bg-gray-800/50 rounded-lg p-6 backdrop-blur-sm">
+                    <p className="text-xl text-gray-100 leading-relaxed">
+                      {blink.question}
+                    </p>
                   </div>
                 </CardContent>
+                <CardFooter className="flex justify-between items-center pt-4">
+                  {/* <div className="flex items-center gap-2 text-gray-400">
+                  <MessageCircle className="h-5 w-5" />
+                  <span className="text-sm">Blink #{blink.blinkId}</span>
+                </div> */}
+                  <Button
+                    variant="outline"
+                    className="bg-white text-black hover:bg-blue-500 hover:text-white border-0 flex items-center gap-2"
+                  >
+                    <div className="text-lg font-semibold">Answer on</div>
+                    <BsTwitterX className="h-2 w-2" />
+                  </Button>
+                </CardFooter>
               </Card>
             </ShineBorder>
           ))}
