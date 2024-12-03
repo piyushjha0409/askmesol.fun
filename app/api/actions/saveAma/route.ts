@@ -68,8 +68,6 @@ export const POST = async (req: Request) => {
         question: question,
         userAddress: userAddress,
         blinkId: blinkId,
-        //TODO: to send the fee in the schema
-        fee: 0
       },
     });
 

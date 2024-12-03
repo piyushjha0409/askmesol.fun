@@ -7,7 +7,7 @@ export default function LoaderComponent() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-black">
       <div className="relative text-center">
-        <motion.div
+        {/* <motion.div
           className="absolute inset-0 -z-10"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -32,7 +32,7 @@ export default function LoaderComponent() {
               }}
             />
           ))}
-        </motion.div>
+        </motion.div> */}
         
         <motion.div
           className="relative w-40 h-40 mx-auto mb-8"

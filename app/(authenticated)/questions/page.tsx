@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import {
   Breadcrumb,
@@ -10,24 +11,26 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
-import Image from "next/image";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ChevronRight, Home, User } from 'lucide-react';
+
+interface BlinkData {
+  blinkId: string;
+  creatorId: string;
+  id: string;
+  question: string;
+  userAddress: string;
+}
 
 export default function Page() {
-  const [blinkData, setBlinkData] = useState<{
-    icon: string;
-    title: string;
-    description: string;
-  } | null>(null);
+  const [blinkData, setBlinkData] = useState<BlinkData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchBlinkData = async () => {
       try {
-        const blinkId = sessionStorage.getItem("blinkId");
-        console.log("This is from session storage --> ", blinkId);
-
-        const response = await fetch(`/api/actions/questions/${blinkId}`, {
+        const response = await fetch(`/api/fetchAma`, {
           method: "GET",
         });
 
@@ -69,42 +72,48 @@ export default function Page() {
 
   return (
     <SidebarInset className="bg-black text-white">
-      <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
+      <header className="flex h-16 shrink-0 items-center gap-2 border-b border-gray-800 px-4">
         <SidebarTrigger className="-ml-1" />
-        <Separator orientation="vertical" className="mr-2 h-4" />
+        <Separator orientation="vertical" className="mr-2 h-4 bg-gray-700" />
         <Breadcrumb>
           <BreadcrumbList>
-            <BreadcrumbItem className="hidden md:block">
-              <BreadcrumbLink href="#">Home</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator className="hidden md:block" />
             <BreadcrumbItem>
-              <BreadcrumbPage>{blinkData?.title || "Blink"}</BreadcrumbPage>
+              <BreadcrumbLink href="#" className="flex items-center">
+                <Home className="h-4 w-4 mr-2" />
+                <span className="hidden md:inline">Home</span>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator>
+              <ChevronRight className="h-4 w-4 text-gray-500" />
+            </BreadcrumbSeparator>
+            <BreadcrumbItem>
+              <BreadcrumbPage className="font-semibold">All Blinks</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
       </header>
       <div className="flex flex-1 flex-col gap-4 p-4">
-        <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-          <div className="aspect-video rounded-xl bg-muted/10 flex items-center justify-center">
-            {blinkData?.icon ? (
-              <Image
-                src={blinkData.icon}
-                alt={blinkData.title}
-                width={112}
-                height={112}
-                className="h-full w-full object-cover rounded-xl"
-              />
-            ) : (
-              <p>No Image</p>
-            )}
-          </div>
-        </div>
-        <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/10 md:min-h-min p-4">
-          <h1 className="text-2xl font-bold">{blinkData?.title}</h1>
-          <p className="mt-4">{blinkData?.description}</p>
-        </div>
+        {blinkData.map((blink) => (
+          <Card key={blink.blinkId} className="bg-gray-900 text-white border-gray-800 w-50">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <User className="h-5 w-5 text-blue-400" />
+                <span className="text-blue-400">
+                  {blink.userAddress.slice(0, 6)}...{blink.userAddress.slice(-4)}
+                </span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="font-medium mb-2">Question:</p>
+              <p className="text-lg text-gray-300">{blink.question}</p>
+              <div className="mt-4 text-sm text-gray-500">
+                Ama ID: {blink.blinkId}
+              </div>
+            </CardContent>
+          </Card>
+        ))}
       </div>
     </SidebarInset>
   );
 }
+

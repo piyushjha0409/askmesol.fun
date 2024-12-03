@@ -97,5 +97,4 @@ model questionSchema {
     blinkId     String
     userAddress String
     question    String
-    fee         Float
 }
