@@ -64,7 +64,7 @@ export default function Page({ params }: { params: { ama_id: string } }) {
     return (
       <SidebarInset className="bg-black text-white">
         <div className="flex items-center justify-center h-screen">
-          <p>Error: {error}</p>
+          <p>No Questions Found!!</p>
         </div>
       </SidebarInset>
     );

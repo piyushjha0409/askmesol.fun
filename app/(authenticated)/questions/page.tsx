@@ -105,7 +105,7 @@ export default function Page() {
             className="rounded-lg overflow-hidden bg-black"
             color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
           >
-            <Card className="bg-black text-white h-full cursor:pointer border-none">
+            <Card className="bg-black text-white h-full cursor:pointer border-none min-w-[500px]">
               <Link href={`/questions/${blink.id}`}>
                 <CardHeader>
                   <CardTitle className="flex items-center justify-between">
