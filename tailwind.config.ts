@@ -68,7 +68,8 @@ const config: Config = {
   		},
   		animation: {
   			'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear',
-  			grid: 'grid 15s linear infinite'
+  			grid: 'grid 15s linear infinite',
+  			shine: 'shine var(--duration) infinite linear'
   		},
   		keyframes: {
   			'border-beam': {
@@ -82,6 +83,17 @@ const config: Config = {
   				},
   				'100%': {
   					transform: 'translateY(0)'
+  				}
+  			},
+  			shine: {
+  				'0%': {
+  					'background-position': '0% 0%'
+  				},
+  				'50%': {
+  					'background-position': '100% 100%'
+  				},
+  				to: {
+  					'background-position': '0% 0%'
   				}
   			}
   		}

@@ -37,7 +37,7 @@ export default function LandingPage() {
           <div className="relative flex h-[500px] w-[700px] flex-col items-center justify-center overflow-hidden rounded-2xl border ">
             <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-semibold leading-none text-white dark:from-white dark:to-slate-900/10">
               <h1 className="text-4xl font-bold mb-6">
-                AMA Project powered by Blink
+                AMA powered by Blink
               </h1>
               <p className="text-xl mb-8">
                 Unleashing the power of questions and answers on Solana

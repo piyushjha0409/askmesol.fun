@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import LoaderComponent from "@/components/LoaderComponent";
 import { motion } from "framer-motion";
+import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 
 export default function UserDashboard() {
     const router = useRouter()
@@ -37,7 +38,7 @@ export default function UserDashboard() {
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
           className="mb-8 text-4xl font-bold"
         >
-          Ask me anything
+         <TypewriterEffectSmooth words={[{ text: "Ask me anything", className: "text-primary text-white" }]}/>
         </motion.h1>
         <motion.div
           initial={{ scale: 0.9 }}

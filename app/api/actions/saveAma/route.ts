@@ -35,7 +35,7 @@ export const POST = async (req: Request) => {
         }
       );
     }
-
+   //query 1
     const blinkDetails = await prisma.blinkSchema.findUnique({
       where: { id: blinkId },
     });
@@ -61,7 +61,8 @@ export const POST = async (req: Request) => {
         headers: ACTIONS_CORS_HEADERS,
       });
     }
-
+  
+    //2 create query 
     await prisma.questionSchema.create({
       data: {
         creator_id: blinkDetails?.creator_id,
