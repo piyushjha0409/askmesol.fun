@@ -153,7 +153,7 @@ export default function CreateBlinkPage() {
     }
   };
 
-  const linkToCopy = `https://solana-blink-project.vercel.app/api/actions/questions/${blinkId}`;
+  const linkToCopy = `https://askmesol.fun/api/actions/questions/${blinkId}`;
 
   //function for making copy button
   const handleCopy = () => {
