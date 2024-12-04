@@ -98,7 +98,7 @@ export default function Page() {
           </BreadcrumbList>
         </Breadcrumb>
       </header>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+      <div className="grid lg:grid-cols-3 gap-6 p-6">
         {blinkData.map((blink) => (
           <ShineBorder
             key={blink.id}
