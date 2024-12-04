@@ -20,29 +20,30 @@ export default function LandingPage() {
   if (status === "loading") {
     return <LoaderComponent />;
   }
+
   return (
-    <div className="flex flex-col h-screen bg-black text-white">
+    <div className="flex flex-col min-h-screen bg-black text-white">
       <AnimatedGridPattern
         numSquares={120}
         maxOpacity={0.1}
         duration={3}
         repeatDelay={1}
         className={cn(
-          "[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]",
-          "inset-x-0 inset-y-[-30%] h-[100%] skew-y-12"
+          "[mask-image:radial-gradient(300px_circle_at_center,white,transparent)]",
+          "inset-x-0 inset-y-[-30%] h-[100%] skew-y-12  md:block"
         )}
       />
-      <main className="flex-1 flex items-center justify-center">
-        <div className="text-center">
-          <div className="relative flex h-[500px] w-[700px] flex-col items-center justify-center overflow-hidden rounded-2xl border ">
-            <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-semibold leading-none text-white dark:from-white dark:to-slate-900/10">
-              <h1 className="text-4xl font-bold mb-6">
+      <main className="flex-1 flex items-center justify-center px-4">
+        <div className="text-center w-full max-w-md md:max-w-xl">
+          <div className="relative flex flex-col items-center justify-center overflow-hidden rounded-2xl border p-6 md:h-[500px] md:w-[700px]">
+            <div className="text-center">
+              <h1 className="text-2xl md:text-4xl font-bold mb-4 md:mb-6">
                 AMA powered by Blink
               </h1>
-              <p className="text-xl mb-8">
+              <p className="text-base md:text-xl mb-6 md:mb-8">
                 Unleashing the power of questions and answers on Solana
               </p>
-            </span>
+            </div>
             <Button
               className="flex gap-2 items-center bg-white text-black hover:bg-gray-200 cursor-pointer"
               size="lg"
@@ -51,13 +52,18 @@ export default function LandingPage() {
               {"Sign In with Twitter"}
               <BsTwitterX />
             </Button>
-            <BorderBeam size={250} duration={12} delay={9} />
+            <BorderBeam 
+              size={250} 
+              duration={12} 
+              delay={9} 
+              className="hidden md:block" 
+            />
           </div>
         </div>
       </main>
-      <footer className="py-6 text-center text-sm">
+      <footer className="py-6 text-center text-sm px-4">
         <p>© 2024 AMA Project powered by Blink. All rights reserved.</p>
-        <p className="mt-2">
+        <p className="mt-2 text-xs md:text-sm">
           The best projects are built on curiosity—AMA lets the world ask, and
           innovation answers.
         </p>

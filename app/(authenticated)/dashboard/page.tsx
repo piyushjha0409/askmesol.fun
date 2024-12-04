@@ -31,36 +31,40 @@ export default function UserDashboard() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="flex min-h-screen w-full flex-col items-center justify-center bg-black text-white"
+      className="flex min-h-screen w-full flex-col items-center justify-center bg-black text-white px-4"
     >
       <motion.h1
         initial={{ y: -50 }}
         animate={{ y: 0 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="mb-8 text-4xl font-bold"
+        className="mb-6 text-2xl md:text-4xl font-bold text-center"
       >
         <TypewriterEffectSmooth
           words={[
-            { text: "Ask me anything", className: "text-primary text-white" },
+            { text: "Ask me anything", className: "text-primary text-white text-3xl md:text-4xl" },
           ]}
         />
       </motion.h1>
       <ShineBorder
-        className="rounded-lg overflow-hidden bg-black text-white"
+        className="rounded-lg overflow-hidden bg-black text-white w-full max-w-md"
         color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
       >
         <motion.div
           initial={{ scale: 0.9 }}
           animate={{ scale: 1 }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          className="mb-8 rounded-lg  p-6 text-center"
+          className="mb-6 rounded-lg p-4 md:p-6 text-center"
         >
-          <p className="text-lg">Welcome to your Creator dashboard!</p>
-          <p className="mt-2 text-sm text-gray-400">
+          <p className="text-base md:text-lg">Welcome to your Creator dashboard!</p>
+          <p className="mt-2 text-xs md:text-sm text-gray-400">
             Here you can manage your account and access exclusive features.
           </p>
         </motion.div>
-        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+        <motion.div 
+          whileHover={{ scale: 1.05 }} 
+          whileTap={{ scale: 0.95 }} 
+          className="flex justify-center"
+        >
           <Button
             onClick={() => router.push("/dashboard/blink")}
             variant="outline"

@@ -76,7 +76,7 @@ export default function Page() {
 
   return (
     <SidebarInset className="bg-black text-white">
-      <header className="flex h-16 shrink-0 items-center gap-2 border-b border-gray-800 px-4">
+      <header className="flex h-16 shrink-0 items-center gap-2 border-b border-gray-800 px-16 md:px-4">
         <SidebarTrigger className="-ml-1" />
         <Separator orientation="vertical" className="mr-2 h-4 bg-gray-700" />
         <Breadcrumb className="p-2 bg-black">
@@ -105,7 +105,7 @@ export default function Page() {
             className="rounded-lg overflow-hidden bg-black"
             color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
           >
-            <Card className="bg-black text-white h-full cursor:pointer border-none min-w-[500px]">
+            <Card className="bg-black text-white h-full cursor:pointer border-none md:min-w-[500px]">
               <Link href={`/questions/${blink.id}`}>
                 <CardHeader>
                   <CardTitle className="flex items-center justify-between">

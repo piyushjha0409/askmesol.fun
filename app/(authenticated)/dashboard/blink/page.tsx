@@ -173,15 +173,15 @@ export default function CreateBlinkPage() {
         <WalletMultiButton />
       </header>
       <main className="flex justify-center items-center h-screen w-full bg-black">
-        <div className="flex">
-          <LoginForm
-            formData={formData}
-            loading={loading}
-            imagePreview={imagePreview}
-            onInputChange={handleInputChange}
-            onFileChange={handleFileChange}
-            onSubmit={handleSubmit}
-          />
+        <div className="flex mx-2">
+        <LoginForm
+        formData={formData}
+        loading={loading}
+        imagePreview={imagePreview}
+        onInputChange={handleInputChange}
+        onFileChange={handleFileChange}
+        onSubmit={handleSubmit}
+        />
         </div>
       </main>
       <PopUpModal

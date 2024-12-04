@@ -80,7 +80,7 @@ export default function Page({ params }: { params: { ama_id: string } }) {
 
   return (
     <SidebarInset className="bg-black text-white min-h-screen">
-      <header className="flex h-16 shrink-0 items-center gap-2 border-b border-gray-800 px-4">
+      <header className="flex h-16 shrink-0 items-center gap-2 border-b border-gray-800 md:px-4 px-12">
         <SidebarTrigger className="-ml-1" />
         <Separator orientation="vertical" className="mr-2 h-4 bg-gray-700" />
         <Breadcrumb className="p-2 bg-black">
@@ -109,15 +109,15 @@ export default function Page({ params }: { params: { ama_id: string } }) {
               <ChevronRight className="h-4 w-4 text-gray-500" />
             </BreadcrumbSeparator>
             <BreadcrumbItem>
-              <BreadcrumbPage className="font-semibold text-white">
-                Blink #{blinkData[0]?.blinkId || "Loading..."}
+              <BreadcrumbPage className="font-semibold text-white text-xs md:text-md">
+                {blinkData[0]?.blinkId || "Loading..."}
               </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
       </header>
-      <div className="flex justify-center">
-        <div className="grid grid-cols-3 gap-12 w-full p-6">
+      <div className="flex w-full justify-center">
+        <div className="grid lg:grid-cols-3 gap-12 p-4">
           {blinkData.map((blink) => (
             <ShineBorder
               key={blink.id}
@@ -126,7 +126,7 @@ export default function Page({ params }: { params: { ama_id: string } }) {
             >
               <Card className="bg-black backdrop-blur-sm border-none">
                 <CardHeader className="pb-2">
-                  <div className=" min-w-[300px] flex items-center justify-between">
+                  <div className=" md:min-w-[300px] flex items-center justify-between">
                     <div className="flex items-center justify-between gap-3">
                       <div className="bg-gray-800 rounded-full p-2">
                         <User className="h-5 w-5 text-white" />
@@ -136,11 +136,6 @@ export default function Page({ params }: { params: { ama_id: string } }) {
                         {blink.userAddress.slice(-4)}
                       </span>
                     </div>
-                    {/* <div className="flex items-center gap-2">
-                      <span className="text-xs text-gray-500">
-                        ID: {blink.id}
-                      </span>
-                    </div> */}
                   </div>
                 </CardHeader>
                 <CardContent className="pt-4">
@@ -151,10 +146,6 @@ export default function Page({ params }: { params: { ama_id: string } }) {
                   </div>
                 </CardContent>
                 <CardFooter className="flex justify-between items-center pt-4">
-                  {/* <div className="flex items-center gap-2 text-gray-400">
-                  <MessageCircle className="h-5 w-5" />
-                  <span className="text-sm">Blink #{blink.blinkId}</span>
-                </div> */}
                   <Button
                     variant="outline"
                     className="bg-white text-black hover:bg-blue-500 hover:text-white border-0 flex items-center gap-2"
