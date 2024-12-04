@@ -169,10 +169,10 @@ export default function CreateBlinkPage() {
 
   return (
     <div className="flex relative w-full min-h-screen bg-black">
-      <header className="absolute top-2 right-3 justify-end p-4">
+      <main className="flex justify-center items-center lg:h-screen w-full bg-black pt-16">
+      <header className="absolute lg:top-2 lg:right-3 justify-end lg:p-4  top-1 right-1">
         <WalletMultiButton />
       </header>
-      <main className="flex justify-center items-center h-screen w-full bg-black">
         <div className="flex mx-2">
         <LoginForm
         formData={formData}
