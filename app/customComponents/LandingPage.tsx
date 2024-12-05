@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { cn } from "@/lib/utils";
@@ -30,12 +31,12 @@ export default function LandingPage() {
         repeatDelay={1}
         className={cn(
           "[mask-image:radial-gradient(300px_circle_at_center,white,transparent)]",
-          "inset-x-0 inset-y-[-30%] h-[100%] skew-y-12  md:block"
+          "absolute inset-x-0 inset-y-[-30%] h-[160%] skew-y-12 md:block pointer-events-none"
         )}
       />
       <main className="flex-1 flex items-center justify-center px-4">
-        <div className="text-center w-full max-w-md md:max-w-xl">
-          <div className="relative flex flex-col items-center justify-center overflow-hidden rounded-2xl border p-6 md:h-[500px] md:w-[700px]">
+        <div className="w-full max-w-md md:max-w-xl">
+          <div className="relative flex flex-col items-center justify-center overflow-hidden rounded-2xl border p-6 md:h-[500px] md:w-[700px] mx-auto">
             <div className="text-center">
               <h1 className="text-2xl md:text-4xl font-bold mb-4 md:mb-6">
                 AMA powered by Blink
@@ -49,7 +50,7 @@ export default function LandingPage() {
               size="lg"
               onClick={Login}
             >
-              {"Sign In with Twitter"}
+              Sign In with Twitter
               <BsTwitterX />
             </Button>
             <BorderBeam 
@@ -71,3 +72,4 @@ export default function LandingPage() {
     </div>
   );
 }
+
