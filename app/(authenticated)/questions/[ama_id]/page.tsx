@@ -23,7 +23,7 @@ import { ChevronRight, Home, User } from "lucide-react";
 import ShineBorder from "@/components/ui/shine-border";
 import { BsTwitterX } from "react-icons/bs";
 import LoaderComponent from "@/components/LoaderComponent";
-import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
+import { toPng } from 'html-to-image';
 import router from "next/router";
 import { useSession } from "next-auth/react";
 
