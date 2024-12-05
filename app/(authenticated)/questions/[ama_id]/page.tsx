@@ -23,7 +23,7 @@ import { ChevronRight, Home, User } from "lucide-react";
 import ShineBorder from "@/components/ui/shine-border";
 import { BsTwitterX } from "react-icons/bs";
 import LoaderComponent from "@/components/LoaderComponent";
-import { toPng } from 'html-to-image';
+import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 import router from "next/router";
 import { useSession } from "next-auth/react";
 
@@ -99,14 +99,13 @@ export default function Page({ params }: { params: { ama_id: string } }) {
       const dataUrl = await toPng(cardElement, {
         quality: 1,
         pixelRatio: 2,
-        // Ensure full card is captured
         height: cardElement.scrollHeight,
         width: cardElement.scrollWidth,
       });
 
       // Prepare tweet text
       const tweetText = encodeURIComponent(
-        `Answering a user question: ${blink.question}\n\nAsked by: ${blink.userAddress}`
+        `Answering a user question: ${blinkData[index].question}\n\nAsked by: ${blinkData[index].userAddress}`
       );
   
       // Open X with the screenshot and pre-filled tweet
