@@ -55,9 +55,9 @@ export default function UserDashboard() {
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
           className="mb-6 rounded-lg p-4 md:p-6 text-center"
         >
-          <p className="text-base md:text-lg">Welcome to your Creator dashboard!</p>
+          <p className="text-base md:text-lg">Welcome to Askmesol</p>
           <p className="mt-2 text-xs md:text-sm text-gray-400">
-            Here you can manage your account and access exclusive features.
+             AMA platform leveraging Solana for interactive Q&A sessions.
           </p>
         </motion.div>
         <motion.div 
