@@ -17,6 +17,8 @@ import { ChevronRight, Home, DollarSign } from "lucide-react";
 import ShineBorder from "@/components/ui/shine-border";
 import LoaderComponent from "@/components/LoaderComponent";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import router from "next/router";
 
 interface BlinkData {
   id: string;
@@ -56,7 +58,14 @@ export default function Page() {
     fetchBlinkData();
   }, []);
 
-  if (loading) {
+  const { status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      router.push("/");
+    },
+  });
+
+  if (status === "loading" || loading) {
     return (
       <div className="flex w-full h-screen items-center justify-center bg-black">
         <LoaderComponent />

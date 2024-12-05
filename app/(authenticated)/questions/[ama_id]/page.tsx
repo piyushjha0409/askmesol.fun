@@ -1,7 +1,7 @@
-//TODO: Figure out a way to manage the screenshot for the page so that we can share it on the twitter 
+//TODO: Figure out a way to manage the screenshot for the page so that we can share it on the twitter
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -23,6 +23,9 @@ import { ChevronRight, Home, User } from "lucide-react";
 import ShineBorder from "@/components/ui/shine-border";
 import { BsTwitterX } from "react-icons/bs";
 import LoaderComponent from "@/components/LoaderComponent";
+import { toPng } from 'html-to-image';
+import router from "next/router";
+import { useSession } from "next-auth/react";
 
 interface BlinkData {
   blinkId: string;
@@ -36,6 +39,14 @@ export default function Page({ params }: { params: { ama_id: string } }) {
   const [blinkData, setBlinkData] = useState<BlinkData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  const { status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      router.push("/");
+    },
+  });
 
   useEffect(() => {
     const fetchBlinkData = async () => {
@@ -60,7 +71,7 @@ export default function Page({ params }: { params: { ama_id: string } }) {
     fetchBlinkData();
   }, [params.ama_id]);
 
-  if (loading) {
+  if (status === "loading" || loading) {
     return (
       <div className="flex w-full h-screen items-center justify-center bg-black">
         <LoaderComponent />
@@ -77,6 +88,42 @@ export default function Page({ params }: { params: { ama_id: string } }) {
       </SidebarInset>
     );
   }
+
+  const handleAnswerOnX = async (index: number) => {
+    const cardElement = cardRefs.current[index];
+
+    if (!cardElement) return;
+
+    try {
+      // Generate screenshot of the card
+      const dataUrl = await toPng(cardElement, {
+        quality: 1,
+        pixelRatio: 2,
+        height: cardElement.scrollHeight,
+        width: cardElement.scrollWidth,
+      });
+
+      // Prepare tweet text
+      const tweetText = encodeURIComponent(
+        `Answering a user question: ${blinkData[index].question}\n\nAsked by: ${blinkData[index].userAddress}`
+      );
+  
+      // Open X with the screenshot and pre-filled tweet
+      const xShareUrl = `https://twitter.com/intent/tweet?text=${tweetText}&url=${encodeURIComponent(
+        dataUrl
+      )}`;
+
+      window.open(xShareUrl, "_blank");
+    } catch (error) {
+      console.error("Failed to capture screenshot", error);
+      // Fallback to just opening X if screenshot fails
+      const tweetText = encodeURIComponent(
+        `Answering a user question: ${blinkData[index].question}`
+      );
+      const xShareUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
+      window.open(xShareUrl, "_blank");
+    }
+  };
 
   return (
     <SidebarInset className="bg-black text-white min-h-screen">
@@ -118,13 +165,18 @@ export default function Page({ params }: { params: { ama_id: string } }) {
       </header>
       <div className="flex w-full justify-center">
         <div className="grid lg:grid-cols-3 gap-12 p-4">
-          {blinkData.map((blink) => (
+          {blinkData.map((blink, index) => (
             <ShineBorder
               key={blink.id}
               className="rounded-xl overflow-hidden bg-black text-white"
               color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
             >
-              <Card className="bg-black backdrop-blur-sm border-none">
+              <Card
+                ref={(el) => {
+                  cardRefs.current[index] = el;
+                }}
+                className="bg-black backdrop-blur-sm border-none"
+              >
                 <CardHeader className="pb-2">
                   <div className=" md:min-w-[300px] flex items-center justify-between">
                     <div className="flex items-center justify-between gap-3">
@@ -149,6 +201,7 @@ export default function Page({ params }: { params: { ama_id: string } }) {
                   <Button
                     variant="outline"
                     className="bg-white text-black hover:bg-blue-500 hover:text-white border-0 flex items-center gap-2"
+                    onClick={() => handleAnswerOnX(index)}
                   >
                     <div className="text-lg font-semibold">Answer on</div>
                     <BsTwitterX className="h-2 w-2" />

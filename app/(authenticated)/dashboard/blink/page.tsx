@@ -9,6 +9,9 @@ import { ToastAction } from "@radix-ui/react-toast";
 import PopUpModal from "@/app/customComponents/PopUpModal";
 import { CheckCircle, Copy } from "lucide-react";
 import { useAnimation } from "framer-motion";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import LoaderComponent from "@/components/LoaderComponent";
 
 const WalletMultiButton = dynamic(
   () =>
@@ -23,7 +26,7 @@ const WalletMultiButton = dynamic(
 export default function CreateBlinkPage() {
   const { toast } = useToast();
   const { publicKey } = useWallet();
-
+  const router = useRouter();
   const controls = useAnimation();
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -167,21 +170,36 @@ export default function CreateBlinkPage() {
     });
   };
 
+  const { status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      router.push("/");
+    },
+  });
+
+  if (status === "loading") {
+    return (
+      <div className="flex w-full h-screen items-center justify-center bg-black">
+        <LoaderComponent />
+      </div>
+    );
+  }
+
   return (
     <div className="flex relative w-full min-h-screen bg-black">
       <main className="flex justify-center items-center lg:h-screen w-full bg-black pt-16">
-      <header className="absolute lg:top-2 lg:right-3 justify-end lg:p-4  top-1 right-1">
-        <WalletMultiButton />
-      </header>
+        <header className="absolute lg:top-2 lg:right-3 justify-end lg:p-4  top-1 right-1">
+          <WalletMultiButton />
+        </header>
         <div className="flex mx-2">
-        <LoginForm
-        formData={formData}
-        loading={loading}
-        imagePreview={imagePreview}
-        onInputChange={handleInputChange}
-        onFileChange={handleFileChange}
-        onSubmit={handleSubmit}
-        />
+          <LoginForm
+            formData={formData}
+            loading={loading}
+            imagePreview={imagePreview}
+            onInputChange={handleInputChange}
+            onFileChange={handleFileChange}
+            onSubmit={handleSubmit}
+          />
         </div>
       </main>
       <PopUpModal
