@@ -24,7 +24,7 @@ import ShineBorder from "@/components/ui/shine-border";
 import { BsTwitterX } from "react-icons/bs";
 import LoaderComponent from "@/components/LoaderComponent";
 import { toPng } from 'html-to-image';
-import router from "next/router";
+import router from "next/navigation";
 import { useSession } from "next-auth/react";
 
 interface BlinkData {
@@ -44,7 +44,7 @@ export default function Page({ params }: { params: { ama_id: string } }) {
   const { status } = useSession({
     required: true,
     onUnauthenticated() {
-      router.push("/");
+      router.redirect("/");
     },
   });
 

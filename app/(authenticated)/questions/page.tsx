@@ -18,7 +18,7 @@ import ShineBorder from "@/components/ui/shine-border";
 import LoaderComponent from "@/components/LoaderComponent";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import router from "next/router";
+import router from "next/navigation";
 
 interface BlinkData {
   id: string;
@@ -61,7 +61,7 @@ export default function Page() {
   const { status } = useSession({
     required: true,
     onUnauthenticated() {
-      router.push("/");
+      router.redirect("/");
     },
   });
 

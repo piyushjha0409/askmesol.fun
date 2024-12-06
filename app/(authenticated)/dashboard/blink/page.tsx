@@ -9,7 +9,7 @@ import { ToastAction } from "@radix-ui/react-toast";
 import PopUpModal from "@/app/customComponents/PopUpModal";
 import { CheckCircle, Copy } from "lucide-react";
 import { useAnimation } from "framer-motion";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import LoaderComponent from "@/components/LoaderComponent";
 
