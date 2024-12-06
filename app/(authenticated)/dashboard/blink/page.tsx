@@ -23,7 +23,7 @@ const WalletMultiButton = dynamic(
 
 // const useWallet = dynamic(() => import('@solana/wallet-adapter-react').then(mod => mod.useWallet), {ssr: false})
 
-export default function CreateBlinkPage() {
+export default function Page() {
   const { toast } = useToast();
   const { publicKey } = useWallet();
   const router = useRouter();
