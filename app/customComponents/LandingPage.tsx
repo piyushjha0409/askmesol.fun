@@ -23,15 +23,15 @@ export default function LandingPage() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-black text-white">
+    <div className="flex flex-col bg-black text-white h-screen overflow-hidden">
       <AnimatedGridPattern
         numSquares={120}
         maxOpacity={0.1}
         duration={3}
-        repeatDelay={1}
         className={cn(
           "[mask-image:radial-gradient(300px_circle_at_center,white,transparent)]",
-          "absolute inset-x-0 inset-y-[-30%] h-[160%] skew-y-12 md:block pointer-events-none"
+          "absolute inset-x-0 inset-0 h-full w-full skew-y-12 md:block pointer-events-none bg-red-800"
+          
         )}
       />
       <main className="flex-1 flex items-center justify-center px-4">
